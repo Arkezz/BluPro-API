@@ -6,6 +6,7 @@ specifiers:
   chalk: 4.1.2
   keyv: ^4.5.2
   koa: ^2.14.1
+  koa-better-ratelimit: ^2.1.2
   koa-body: ^6.0.1
   koa-compress: ^5.1.0
   koa-conditional-get: ^3.0.0
@@ -24,6 +25,7 @@ dependencies:
   chalk: 4.1.2
   keyv: 4.5.2
   koa: 2.14.1
+  koa-better-ratelimit: 2.1.2
   koa-body: 6.0.1
   koa-compress: 5.1.0
   koa-conditional-get: 3.0.0
@@ -594,6 +596,10 @@ packages:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
     dev: false
 
+  /ipchecker/0.0.2:
+    resolution: {integrity: sha512-mFOV36ouHt9QgBPO4HSZZ9ahRxvAX/To+HzTUfmvTe36qwkglFmk6N9sg6MEW1Qz9LT3vXCNy+s89xn7PhLXSA==}
+    dev: false
+
   /is-arrayish/0.3.2:
     resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
     dev: false
@@ -631,6 +637,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       is-buffer: 1.1.6
+    dev: false
+
+  /koa-better-ratelimit/2.1.2:
+    resolution: {integrity: sha512-B4iZpg0nDigcW6Z+ppuI27Aa+ug1WaDxkVA71XhWcZQKM3QdXwrhLQGRyMdz8aQFBqUOOWRbWhski8epoeQRzg==}
+    engines: {node: '>= 0.11.14', npm: '>= 1.4.28'}
+    dependencies:
+      ipchecker: 0.0.2
     dev: false
 
   /koa-body/6.0.1:
