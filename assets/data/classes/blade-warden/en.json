@@ -1,5 +1,60 @@
 {
   "name": "Blade Warden",
-  "description": "A master of sword and shield, this close-range class is the cornerstone to any defense.",
-  "skills": []
+  "description": "Aegis Fighter is a melee class equipped with a sword and a powerful shield. A class with offensive and defensive skills but mostly focused on survival.The class has a special gauge called “Shield Gauge.” Shield Gauge is necessary to block incoming damage and regenerates if you don't block. If the Shield Gauge reaches “0,” the shield breaks and you won't be able to block for a few seconds",
+  "quote": "A master of sword and shield, this close-range class is the cornerstone to any defense.",
+  "skills": [
+    {
+      "name": "Shield Bash",
+      "description": "Chain attack, the 4th attack deals additional damage and applies a damage reduction debuff on the enemy."
+    },
+    {
+      "name": "Shield Guard",
+      "description": "Shielding skill to block incoming damage until Endurance hits “0”. You can activate counter mode by clicking Left Click while holding up the shield."
+    },
+    {
+      "name": "Shield Charge",
+      "description": "Launch an attack by bashing your shield to enemies in front of you. Stuns enemies upon hit. Cannot be used in Shield/Guard break state.",
+      "cooldown": "Cooldown: 12s"
+    },
+    {
+      "name": "Sunrise Charge",
+      "description": "Rush towards the enemy with his shield, causing light damage. If you charge the attack level 2, it will trigger a second combo, if you charge it level 3, it will trigger a third combo and put a Holy debuff.",
+      "cooldown": "Cooldown: 12s"
+    },
+    {
+      "name": "Blow Beat",
+      "description": "Launch a shockwave attack to all directions in circular area around you. Enemies hit will be granted a Taunt Debuff.",
+      "cooldown": "Cooldown: 10s"
+    },
+    {
+      "name": "Celestial Pillar",
+      "description": "Summon a pillar of light which continuously deals light damage to enemies in range.",
+      "cooldown": "Cooldown: 12s"
+    },
+    {
+      "name": "Divide Slash",
+      "description": "Attack by releasing a slash that penetrates enemy in front of you.",
+      "cooldown": "Cooldown: 12s"
+    },
+    {
+      "name": "Crescent Light",
+      "description": "Launch a crescent light slash causing light damage. If you charge it level 2, it will launch two slashes instead of one.",
+      "cooldown": "Cooldown: 15s"
+    },
+    {
+      "name": "Regeneration",
+      "description": "Passive Skill that continuously give you back HP.",
+      "cooldown": "Cooldown: 45s"
+    },
+    {
+      "name": "Fortress",
+      "description": "Grants a Shield/Guard Up buff status effect to self for a fixed time. Cannot be used in Shield/Guard break state.",
+      "cooldown": "Cooldown: 30s"
+    },
+    {
+      "name": "Judgement Shield",
+      "description": "Launch a shockwave Light attribute attack to the frontal area. Gains a buff that recovers Shield gauge when using skills. When you successfully guard an attack, slightly shortens Ultimate cooldown.",
+      "cooldown": "Cooldown: 60s"
+    }
+  ]
 }

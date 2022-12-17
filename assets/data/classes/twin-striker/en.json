@@ -1,5 +1,19 @@
 {
   "name": "Twin Striker",
-  "description": "A close-range class that unleashes a fierce, continuous attack with two axes. ",
-  "skills": []
+  "description": "Twin Striker is a melee DPS class equipped with two powerful axes. A class which deals constant damage and has skills which keep them alive as long as they deal damage.The class will have a combo meter that awards the character bonus damage for every successful attack. Combo meter is X%/130% bonus damage. ",
+  "skills": [
+    {
+      "name": "Beast Swing",
+      "description": "Chain attack, the 4th attack deals additional damage and applies a damage reduction debuff on the enemy."
+    },
+    {
+      "name": "Axe Tornado",
+      "description": "Shielding skill to block incoming damage until Endurance hits “0”. You can activate counter mode by clicking Left Click while holding up the shield."
+    },
+    {
+      "name": "Brutal Blow",
+      "description": "Launch a rotating slash attack in a wide area in front of you.",
+      "cooldown": "Cooldown: 10s"
+    }
+  ]
 }
