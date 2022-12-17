@@ -8,48 +8,39 @@ const {
   getImage,
 } = require("../modules/filesystem");
 
-const errors = {
-  notFound: {
-    status: 404,
-    message: "Not found",
-  },
-};
-
 const router = new Router();
 
 router.get("/", async (ctx) => {
   try {
-    const types = await getTypes();
-    ctx.body = types;
+    ctx.body = await getTypes();
   } catch (error) {
-    ctx.status = errors.notFound.status;
+    ctx.status = 500;
     ctx.body = {
-      error: errors.notFound.message,
+      error: error.message,
     };
   }
 });
 
 router.get("/:type", async (ctx) => {
+  const { type } = ctx.params;
+
   try {
-    const { type } = ctx.params;
-    const entities = await getAvailableEntities(type);
-    ctx.body = entities;
+    ctx.body = await getAvailableEntities(type);
   } catch (error) {
-    ctx.status = errors.notFound.status;
-    const availableTypes = await getTypes();
+    ctx.status = 404;
     ctx.body = {
-      error: errors.notFound.message,
-      availableTypes,
+      error: error.message,
+      availableTypes: await getTypes(),
     };
   }
 });
 
 router.get("/:type/all", async (ctx) => {
-  try {
-    const { lang, ...params } = ctx.query;
-    const { type } = ctx.params;
-    const entities = await getAvailableEntities(type);
+  const { type } = ctx.params;
+  const { lang, ...params } = ctx.query;
 
+  try {
+    const entities = await getAvailableEntities(type);
     if (!entities) return;
 
     const entityObjects = await Promise.all(
@@ -70,32 +61,32 @@ router.get("/:type/all", async (ctx) => {
       }
       return true;
     });
-  } catch (e) {
-    ctx.status = errors.notFound.status;
-    ctx.body = { error: errors.notFound.message };
+  } catch (error) {
+    ctx.status = 404;
+    ctx.body = { error: error.message };
   }
 });
 
 router.get("/:type/:id", async (ctx) => {
-  try {
-    const { lang } = ctx.query;
-    const { type, id } = ctx.params;
+  const { type, id } = ctx.params;
+  const { lang } = ctx.query;
 
+  try {
     ctx.body = await getEntity(type, id, lang);
-  } catch (e) {
-    ctx.status = errors.notFound.status;
-    ctx.body = { error: errors.notFound.message };
+  } catch (error) {
+    ctx.status = 404;
+    ctx.body = { error: error.message };
   }
 });
 
 router.get("/:type/:id/list", async (ctx) => {
-  try {
-    const { type, id } = ctx.params;
+  const { type, id } = ctx.params;
 
+  try {
     ctx.body = await getAvailableImages(type, id);
-  } catch (e) {
-    ctx.status = errors.notFound.status;
-    ctx.body = { error: errors.notFound.message };
+  } catch (error) {
+    ctx.status = 404;
+    ctx.body = { error: error.message };
   }
 });
 
@@ -107,13 +98,13 @@ router.get("/:type/:id/:imageType", async (ctx) => {
 
     ctx.body = image.image;
     ctx.type = image.type;
-  } catch (e) {
-    ctx.status = errors.notFound.status;
+  } catch (error) {
+    ctx.status = 404;
     try {
-      const av = await getAvailableImages(type, id);
-      ctx.body = { error: errors.notFound.message, availableImages: av };
+      const availableImages = await getAvailableImages(type, id);
+      ctx.body = { error: error.message, availableImages };
     } catch (e) {
-      ctx.body = { error: errors.notFound.message };
+      ctx.body = { error: error.message };
     }
   }
 });
