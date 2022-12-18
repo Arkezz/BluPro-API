@@ -1,12 +1,13 @@
+const logger = require("./modules/logger");
 const Koa = require("koa");
 const { koaBody } = require("koa-body");
 const helmet = require("koa-helmet");
 const cors = require("@koa/cors");
-const chalk = require("chalk");
 const compress = require("koa-compress");
 const conditional = require("koa-conditional-get");
 const etag = require("koa-etag");
 const responseTime = require("koa-response-time");
+const chalk = require("chalk");
 
 const router = require("./routes/api");
 
@@ -18,7 +19,7 @@ const router = require("./routes/api");
     try {
       await next();
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       ctx.status = error.status || 500;
       ctx.body = error.message;
     }
@@ -36,6 +37,6 @@ const router = require("./routes/api");
   app.use(etag());
 
   app.listen(port, () => {
-    console.log(chalk.green(`Server listening on port ${port}`));
+    logger.info(chalk.blue(`Server listening on port ${port}`));
   });
 })();
