@@ -1,3 +1,4 @@
+const logger = require("./logger");
 const fs = require("fs");
 const { existsSync } = require("fs");
 const path = require("path");
@@ -16,19 +17,25 @@ const readFile = promisify(fs.readFile);
 
 async function getTypes() {
   const found = await cache.get("types");
-  if (found) return found;
+  if (found) {
+    logger.debug("Cache hit for types");
+    return found;
+  }
 
   const types = await readdir(dataDirectory);
 
   await cache.set("types", types);
-  console.log("Added types to cache");
+  logger.info("Added types to cache");
 
   return types;
 }
 
 async function getAvailableEntities(type) {
   const found = await cache.get(`data-${type}`.toLowerCase());
-  if (found) return found;
+  if (found) {
+    logger.debug(`Cache hit for data-${type}`);
+    return found;
+  }
 
   const filePath = path.join(dataDirectory, type);
   if (!fs.existsSync(filePath)) {
@@ -37,14 +44,17 @@ async function getAvailableEntities(type) {
 
   const entities = await readdir(filePath);
   await cache.set(`data-${type}`, entities);
-  console.log(`Added ${type} to the cache`);
+  logger.info(`Added ${type} to the cache`);
   return entities;
 }
 
 async function getEntity(type, id, lang = "en") {
   const cacheId = `data-${type}-${id}-${lang}`.toLowerCase();
   const found = await cache.get(cacheId);
-  if (found) return found;
+  if (found) {
+    logger.debug(`Cache hit for data-${type}-${id}-${lang}`);
+    return found;
+  }
 
   const filePath = path
     .join(dataDirectory, type, id.toLowerCase(), `${lang}.json`)
@@ -60,17 +70,17 @@ async function getEntity(type, id, lang = "en") {
     const englishExists = fs.existsSync(englishPath);
     if (englishExists) errorMessage += `, language en would exist`;
 
-    console.error(errorMessage);
+    logger.warn(errorMessage);
   }
 
   const file = await readFile(filePath);
   try {
     const entity = JSON.parse(file.toString("utf-8"));
     await cache.set(cacheId, entity);
-    console.log(`Added ${id} in ${lang} to the cache`);
+    logger.info(`Added ${id} in ${lang} to the cache`);
     return entity;
   } catch (e) {
-    console.error(
+    logger.error(
       `Error in JSON formatting of Entity ${type}/${id} for language ${lang}`
     );
   }
@@ -79,7 +89,10 @@ async function getEntity(type, id, lang = "en") {
 async function getAvailableImages(type, id) {
   const cacheId = `image-${type}-${id}`.toLowerCase();
   const found = await cache.get(cacheId);
-  if (found) return found;
+  if (found) {
+    logger.debug(`Cache hit for image-${type}-${id}`);
+    return found;
+  }
 
   const filePath = path.join(imagesDirectory, type, id).normalize();
   if (!fs.existsSync(filePath)) {
@@ -88,7 +101,7 @@ async function getAvailableImages(type, id) {
 
   const images = await readdir(filePath);
   await cache.set(cacheId, images);
-  console.log(`Added ${id} to the cache`);
+  logger.info(`Added ${id} to the cache`);
   return images;
 }
 
@@ -104,7 +117,7 @@ async function getImage(type, id, image) {
 
   return {
     image: await sharp(filePath).toFormat(requestedFileType).toBuffer(),
-    type: mimeTypes.lookup(requestedFileType) || "text/plain",
+    type: mimeTypes.lookup(requestedFileType),
   };
 }
 

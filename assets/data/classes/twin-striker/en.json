@@ -1,6 +1,7 @@
 {
   "name": "Twin Striker",
-  "description": "Twin Striker is a melee DPS class equipped with two powerful axes. A class which deals constant damage and has skills which keep them alive as long as they deal damage.The class will have a combo meter that awards the character bonus damage for every successful attack. Combo meter is X%/130% bonus damage. ",
+  "description": "Twin Striker is a melee DPS class equipped with two powerful axes. A class which deals constant damage and has skills which keep them alive as long as they deal damage.The class will have a combo meter that awards the character bonus damage for every successful attack. Combo meter is X%/130% bonus damage.",
+  "quote": "A close-range class that unleashes a fierce, continuous attack with two axes.",
   "skills": [
     {
       "name": "Beast Swing",

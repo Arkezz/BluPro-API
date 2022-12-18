@@ -5,7 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node . | pino-pretty -i pid,hostname -t 'yyyy-mm-dd HH:MM:ss'"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,8 @@
     "koa-static": "^5.0.0",
     "lazy-cache": "^2.0.2",
     "mime-types": "^2.1.35",
+    "pino": "7.0.0-rc.9",
+    "pino-pretty": "^9.1.1",
     "sharp": "^0.31.2"
   }
 }
