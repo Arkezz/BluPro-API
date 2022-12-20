@@ -19,10 +19,14 @@ const router = require("./routes/api");
     try {
       await next();
     } catch (error) {
-      logger.error(error);
       ctx.status = error.status || 500;
       ctx.body = error.message;
+      ctx.app.emit("error", error, ctx);
     }
+  });
+
+  app.on("error", (error, ctx) => {
+    logger.error(error);
   });
 
   app.use(koaBody());

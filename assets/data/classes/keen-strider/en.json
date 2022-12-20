@@ -1,5 +1,35 @@
 {
   "name": "Keen Strider",
-  "description": "A technical class that specializes in party battles and excels at mid and long-range attacks and support.",
-  "skills": []
+  "description": "Keen Strider is a long range DPS/support class equiped with a Bow. This class is agile and deals increased damage on enemy weakspots.The class has several attack, buff / debuff and support abilities. They can also use ground element skills to apply more effects to enemies.",
+  "quote": "A technical class that specializes in party battles and excels at mid and long-range attacks and support.",
+  "stats": [
+    {
+      "name": "Attack",
+      "value": "159"
+    },
+    {
+      "name": "Critical Chance",
+      "value": "9%"
+    },
+    {
+      "name": "Critical Damage",
+      "value": "46%"
+    },
+    {
+      "name": "Defense Power",
+      "value": "50"
+    },
+    {
+      "name": "Recovery Power",
+      "value": "65"
+    }
+  ],
+  "basicSkills": [
+    {
+      "name": "Arrow Rush",
+      "description": "Chain attack, which can be casted while moving. The last attack shoots multiple arrows."
+    }
+  ],
+  "tacticalSkills": [],
+  "ultimateSkill": []
 }

@@ -1,5 +1,30 @@
 {
   "name": "Foe Breaker",
   "description": "A close-to-medium range class that maintains the battle line with a heavyweight hammer that has a blow that can shake the earth.",
-  "skills": []
+  "quote": "A close-to-medium range class that maintains the battle line with a heavyweight hammer that has a blow that can shake the earth",
+  "stats": [
+    {
+      "name": "Attack",
+      "value": "158"
+    },
+    {
+      "name": "Critical Chance",
+      "value": "5%"
+    },
+    {
+      "name": "Critical Damage",
+      "value": "36%"
+    },
+    {
+      "name": "Defense Power",
+      "value": "68"
+    },
+    {
+      "name": "Recovery Power",
+      "value": "62"
+    }
+  ],
+  "basicSkills": [],
+  "tacticalSkills": [],
+  "ultimateSkill": []
 }

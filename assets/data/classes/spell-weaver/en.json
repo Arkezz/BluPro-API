@@ -1,5 +1,30 @@
 {
   "name": "Spell Weaver",
-  "description": "A high-difficulty, long-distance class suitable for parties. Stay safe from the front line with the ability to eliminate enemies by firing high-power attribute attacks.",
-  "skills": []
+  "description": "Spell Weaver is a ranged mage class equiped with a staff. This class can manipulate the elements on the battle field and has a gauge called “Mana“, which is required to cast some spells. Mana doesn't recover over time and needs to be charged up by using certain skills.You can learn various attribute attacks, including fire, ice, and lightning. It has high power and attribute effects, which are more effective in party battles.",
+  "quote": "A high-difficulty, long-distance class suitable for parties. Stay safe from the front line with the ability to eliminate enemies by firing high-power attribute attacks",
+  "stats": [
+    {
+      "name": "Attack",
+      "value": "158"
+    },
+    {
+      "name": "Critical Chance",
+      "value": "5%"
+    },
+    {
+      "name": "Critical Damage",
+      "value": "36%"
+    },
+    {
+      "name": "Defense Power",
+      "value": "68"
+    },
+    {
+      "name": "Recovery Power",
+      "value": "62"
+    }
+  ],
+  "basicSkills": [],
+  "tacticalSkills": [],
+  "ultimateSkill": []
 }
