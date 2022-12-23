@@ -28,8 +28,59 @@
     {
       "name": "Arrow Rush",
       "description": "Chain attack, which can be casted while moving. The last attack shoots multiple arrows."
+    },
+    {
+      "name": "Slalom Shot",
+      "description": "Shoots a powerful arrow. If you press any direction key during the last attack, you will dodge towards the input direction."
     }
   ],
-  "tacticalSkills": [],
-  "ultimateSkill": []
+  "tacticalSkills": [
+    {
+      "name": "Charge Arrow",
+      "description": "Shoots a chargeable arrow, which deals damage according to the charged amount. This skill will deal increased damage, if you hit a weak spot. Knockback effect if you charge the arrow.",
+      "cooldown": "Cooldown: 18s"
+    },
+    {
+      "name": "Hypnoblast Shoots",
+      "description": "Throws an arrow on the enemies and puts them to sleep.",
+      "cooldown": "Cooldown: 23s"
+    },
+    {
+      "name": "Negative Resonance",
+      "description": "Releases arrows going straight and spread on hit ailment applied on enemies.",
+      "cooldown": "Cooldown: 20s"
+    },
+    {
+      "name": "Stampede Arrow",
+      "description": "Shoot multiple homing arrows at the enemy.",
+      "cooldown": "Cooldown: 13s"
+    },
+    {
+      "name": "Lethal Shower",
+      "description": "Shoot arrows upwards which has the effect of creating an area on the ground attacking all the enemies inside. The more the skill is loaded, the larger the area.",
+      "cooldown": "Cooldown: 25s"
+    },
+    {
+      "name": "Dust Force",
+      "description": "Throws an arrow to activate a ground AOE slowing enemies and inflicting damage over time.",
+      "cooldown": "Cooldown: 20s"
+    },
+    {
+      "name": "Healing Arrow",
+      "description": "An AOE heal arrow, that can heal the team and yourself.",
+      "cooldown": "Cooldown: 30s"
+    },
+    {
+      "name": "Hunter Spirit",
+      "description": "Launch a Cooldown reduction buff on yourself and your group.",
+      "cooldown": "Cooldown: 10s"
+    }
+  ],
+  "ultimateSkill": [
+    {
+      "name": "Mortal Gravity",
+      "description": "Fire a gravitational arrow which creates an area attracting enemies to its middle.",
+      "cooldown": "Cooldown: 60s"
+    }
+  ]
 }

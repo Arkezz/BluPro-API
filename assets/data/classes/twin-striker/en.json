@@ -39,7 +39,48 @@
       "name": "Brutal Blow",
       "description": "Launch a rotating slash attack in a wide area in front of you.",
       "cooldown": "Cooldown: 10s"
+    },
+    {
+      "name": "Crimson Blow",
+      "description": "Launches a fire spinning attack that can be charged up to 3 times.",
+      "cooldown": "Cooldown: 8s"
+    },
+    {
+      "name": "Fall Impact",
+      "description": "Attack enemies by leaping forward and land on ground.",
+      "cooldown": "Cooldown: 6s"
+    },
+    {
+      "name": "Lava Impact",
+      "description": "Make an attack by jumping and hitting the ground that can be used up to 3 times in a row. Fire type attack.",
+      "cooldown": "Cooldown: 6s"
+    },
+    {
+      "name": "Storm Rush",
+      "description": "Make a forward, two side-by-side attack in a wide area.",
+      "cooldown": "Cooldown: 15s"
+    },
+    {
+      "name": "Burning Rush",
+      "description": "Throws slashes of fire attacking enemies. The combo increases depending on the charge level.",
+      "cooldown": "Cooldown: 12s"
+    },
+    {
+      "name": "Blood Axe",
+      "description": "Allow you to absorb HP when you inflict damage to enemies.",
+      "cooldown": "Cooldown: 30s"
+    },
+    {
+      "name": "War Cry",
+      "description": "Grants Super Armor status for a fixed time. (You won't be staggered when you get hit by enemies in this state).",
+      "cooldown": "Cooldown: 30s"
     }
   ],
-  "ultimateSkill": []
+  "ultimateSkill": [
+    {
+      "name": "Vortex Impact",
+      "description": "Rushes towards the enemy and rises in the air. Whirl and send the enemy back to the ground.",
+      "cooldown": "Cooldown: 60s"
+    }
+  ]
 }

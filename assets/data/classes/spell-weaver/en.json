@@ -24,7 +24,68 @@
       "value": "62"
     }
   ],
-  "basicSkills": [],
-  "tacticalSkills": [],
-  "ultimateSkill": []
+  "basicSkills": [
+    {
+      "name": "Trinity Shot",
+      "description": "Chain attack, which restores mana."
+    },
+    {
+      "name": "Sub Action",
+      "description": "Shoots trinity bolts, which recover mana."
+    }
+  ],
+  "tacticalSkills": [
+    {
+      "name": "Fire Blast",
+      "description": "Consumes mana. Shoots a fireball, which can be charged up to 3 levels. Charged level increases the damage of the fireball.",
+      "cooldown": "Cooldown 0s"
+    },
+    {
+      "name": "Flame Grenade",
+      "description": "Send a ball of fire which explodes when touching the enemy. Can be charged up to 3 times.",
+      "cooldown": "Cooldown 0s"
+    },
+    {
+      "name": "Fire Blast",
+      "description": "Consumes mana. Shoots a fireball, which can be charged up to 3 levels. Charged level increases the damage of the fireball.",
+      "cooldown": "Cooldown 0s"
+    },
+    {
+      "name": "Lightning",
+      "description": "Shoots lightning bolts, which can be charged up to 3 levels. Charged level increases the amount of lightning bolts. At max charge you will get charge time reduction buff for all your skills.",
+      "cooldown": "Cooldown 0s"
+    },
+    {
+      "name": "Thunder Mine",
+      "description": "Summons a lightning mine following the enemy to the hit and causes an explosion. At each charge level, a mine is added.",
+      "cooldown": "Cooldown 0s"
+    },
+    {
+      "name": "Blizzard",
+      "description": "Places a chargeable snowstorm, which slows and damages enemies in it. Charge time increases the size of the storm and damage.",
+      "cooldown": "Cooldown 0s"
+    },
+    {
+      "name": "Frigid Crash",
+      "description": "Summons a lightning mine following the enemy to the hit and causes an explosion. At each charge level, a mine is added.",
+      "cooldown": "Cooldown 0s"
+    },
+    {
+      "name": "Concentration",
+      "description": "Regenerates mana temporarily.",
+      "cooldown": "Cooldown 16s"
+    },
+    {
+      "name": "Follow Bullet",
+      "description": "Summons two crystal. For each skill used, the crystals will inflict damage on the enemy depending on the element of the skill.",
+      "cooldown": "Cooldown 16s"
+    }
+  ],
+  "ultimateSkill": [
+    {
+      "name": "Meteor Inferno",
+      "description": "Summons a huge meteor, which deals enormous damage.",
+      "cooldown": "Cooldown 60s"
+    }
+  ]
 }
