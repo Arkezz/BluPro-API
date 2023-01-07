@@ -41,7 +41,7 @@ router.get("/:type/all", async (ctx) => {
 
   try {
     const entities = await getAvailableEntities(type);
-    if (!entities) return;
+    if (!entities) ctx.throw(404, "No entities found");
 
     const entityObjects = await Promise.all(
       entities.map(async (id) => {
@@ -53,16 +53,16 @@ router.get("/:type/all", async (ctx) => {
       })
     );
 
-    ctx.body = entityObjects.filter((entity) => {
-      if (!entity) return;
-
-      for (const [key, value] of Object.entries(params)) {
-        if (!entity[key] || entity[key] !== value) return false;
-      }
-      return true;
+    const filteredEntities = entityObjects.filter((entity) => {
+      if (!entity) return false;
+      return Object.entries(ctx.query).every(([key, value]) => {
+        return entity[key] === value;
+      });
     });
+
+    ctx.body = filteredEntities;
   } catch (error) {
-    ctx.status = 404;
+    ctx.status = 500;
     ctx.body = { error: error.message };
   }
 });

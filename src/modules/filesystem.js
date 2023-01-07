@@ -1,6 +1,5 @@
 const logger = require("./logger");
 const fs = require("fs");
-const { existsSync } = require("fs");
 const path = require("path");
 const keyv = require("keyv");
 const sharp = require("sharp");
@@ -111,7 +110,7 @@ async function getImage(type, id, image) {
   const requestedFileType =
     parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "webp";
 
-  if (!existsSync(filePath)) {
+  if (!fs.existsSync(filePath)) {
     throw new Error(`Image ${type}/${id}/${image} doesn't exist`);
   }
 
