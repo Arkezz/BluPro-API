@@ -80,7 +80,7 @@ async function getEntity(type, id, lang = "en") {
     return entity;
   } catch (e) {
     logger.error(
-      `Error in JSON formatting of Entity ${type}/${id} for language ${lang}`
+      `Error in JSON formatting of Entity ${type}/${id} for language ${lang}`,
     );
   }
 }

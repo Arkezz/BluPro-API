@@ -6,7 +6,7 @@ const cors = require("@koa/cors");
 const compress = require("koa-compress");
 const chalk = require("chalk");
 
-const router = require("./routes/api");
+const router = require("./routes/router");
 
 (async () => {
   const app = new Koa();
