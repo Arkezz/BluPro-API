@@ -62,7 +62,7 @@ class GameController {
           } catch (e) {
             return null;
           }
-        }),
+        })
       );
 
       const filteredEntities = entityObjects.filter((entity) => {
