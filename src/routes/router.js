@@ -1,5 +1,5 @@
 const Router = require("koa-router");
-const GameController = require("../controllers/maincontroller");
+const GameController = require("../controllers/classController");
 const router = new Router();
 
 router.get("/", GameController.getTypes);

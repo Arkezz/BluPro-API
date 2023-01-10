@@ -1,7 +1,7 @@
 {
   "name": "blue-protocol-db",
   "version": "1.0.0",
-  "description": "",
+  "description": "API for the popular upcoming game Blue Protocol",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
