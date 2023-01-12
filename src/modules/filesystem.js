@@ -51,7 +51,7 @@ async function getEntity(type, id, lang = "en") {
   const cacheId = `data-${type}-${id}-${lang}`.toLowerCase();
   const found = await cache.get(cacheId);
   if (found) {
-    logger.debug(`Cache hit for data-${type}-${id}-${lang}`);
+    logger.info(`Cache hit for data-${type}-${id}-${lang}`);
     return found;
   }
 
@@ -69,7 +69,8 @@ async function getEntity(type, id, lang = "en") {
     const englishExists = fs.existsSync(englishPath);
     if (englishExists) errorMessage += `, language en would exist`;
 
-    logger.warn(errorMessage);
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
   }
 
   const file = await readFile(filePath);

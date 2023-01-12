@@ -42,7 +42,6 @@ class GameController {
       ctx.status = 404;
       ctx.body = {
         error: error.message,
-        availableEntities: await getAvailableEntities(type),
       };
     }
   }
