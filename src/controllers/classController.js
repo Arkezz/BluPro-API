@@ -1,10 +1,10 @@
-const {
+import {
   getTypes,
   getAvailableEntities,
   getEntity,
   getAvailableImages,
   getImage,
-} = require("../modules/filesystem");
+} from "../modules/filesystem.js";
 
 class GameController {
   static async getTypes(ctx) {
@@ -109,4 +109,4 @@ class GameController {
   }
 }
 
-module.exports = GameController;
+export default GameController;

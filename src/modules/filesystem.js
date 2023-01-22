@@ -1,35 +1,36 @@
-const logger = require("./logger");
-const fs = require("fs");
-const path = require("path");
-const keyv = require("keyv");
-const sharp = require("sharp");
-const { promisify } = require("util");
-const mimeTypes = require("mime-types");
+import logger from "./logger.js";
+import fs from "fs/promises";
+import path from "path";
+import keyv from "keyv";
+import sharp from "sharp";
+import mimeTypes from "mime-types";
 
 const cache = new keyv();
 
 const dataDirectory = path.join("assets", "data");
 const imagesDirectory = path.join("assets", "images");
 
-const readdir = promisify(fs.readdir);
-const readFile = promisify(fs.readFile);
-
-async function getTypes() {
+export async function getTypes() {
   const found = await cache.get("types");
   if (found) {
     logger.debug("Cache hit for types");
     return found;
   }
 
-  const types = await readdir(dataDirectory);
+  try {
+    const types = await fs.readdir(dataDirectory);
 
-  await cache.set("types", types);
-  logger.info("Added types to cache");
+    await cache.set("types", types);
+    logger.info("Added types to cache");
 
-  return types;
+    return types;
+  } catch (e) {
+    logger.error(`Error reading types: ${e}`);
+    throw e;
+  }
 }
 
-async function getAvailableEntities(type) {
+export async function getAvailableEntities(type) {
   const found = await cache.get(`data-${type}`.toLowerCase());
   if (found) {
     logger.debug(`Cache hit for data-${type}`);
@@ -37,17 +38,24 @@ async function getAvailableEntities(type) {
   }
 
   const filePath = path.join(dataDirectory, type);
-  if (!fs.existsSync(filePath)) {
+  try {
+    await fs.access(filePath, fs.constants.F_OK);
+  } catch (e) {
     throw new Error(`Type ${type} not found`);
   }
 
-  const entities = await readdir(filePath);
-  await cache.set(`data-${type}`, entities);
-  logger.info(`Added ${type} to the cache`);
-  return entities;
+  try {
+    const entities = await fs.readdir(filePath);
+    await cache.set(`data-${type}`, entities);
+    logger.info(`Added ${type} to the cache`);
+    return entities;
+  } catch (e) {
+    logger.error(`Error reading entities for ${type}: ${e}`);
+    throw e;
+  }
 }
 
-async function getEntity(type, id, lang = "en") {
+export async function getEntity(type, id, lang = "en") {
   const cacheId = `data-${type}-${id}-${lang}`.toLowerCase();
   const found = await cache.get(cacheId);
   if (found) {
@@ -59,34 +67,38 @@ async function getEntity(type, id, lang = "en") {
     .join(dataDirectory, type, id.toLowerCase(), `${lang}.json`)
     .normalize();
 
-  const exists = fs.existsSync(filePath);
-  if (!exists) {
+  try {
+    await fs.access(filePath, fs.constants.F_OK);
+  } catch (e) {
     let errorMessage = `Entity ${type}/${id} for language ${lang} not found`;
     const englishPath = path
       .join(dataDirectory, type, id.toLowerCase(), "en.json")
       .normalize();
 
-    const englishExists = fs.existsSync(englishPath);
-    if (englishExists) errorMessage += `, language en would exist`;
+    try {
+      await fs.access(englishPath, fs.constants.F_OK);
+      errorMessage += `, language en would exist`;
+    } catch (e) {}
 
     logger.error(errorMessage);
     throw new Error(errorMessage);
   }
 
-  const file = await readFile(filePath);
   try {
-    const entity = JSON.parse(file.toString("utf-8"));
+    const file = await fs.readFile(filePath);
+    const entity = JSON.parse(file);
     await cache.set(cacheId, entity);
     logger.info(`Added ${id} in ${lang} to the cache`);
     return entity;
   } catch (e) {
     logger.error(
-      `Error in JSON formatting of Entity ${type}/${id} for language ${lang}`
+      `Error reading or parsing entity ${type}/${id} for language ${lang}: ${e}`
     );
+    throw e;
   }
 }
 
-async function getAvailableImages(type, id) {
+export async function getAvailableImages(type, id) {
   const cacheId = `image-${type}-${id}`.toLowerCase();
   const found = await cache.get(cacheId);
   if (found) {
@@ -95,23 +107,33 @@ async function getAvailableImages(type, id) {
   }
 
   const filePath = path.join(imagesDirectory, type, id).normalize();
-  if (!fs.existsSync(filePath)) {
+  try {
+    await fs.access(filePath, fs.constants.F_OK);
+  } catch (e) {
     throw new Error(`No images for ${type}/${id} exist`);
   }
 
-  const images = await readdir(filePath);
-  await cache.set(cacheId, images);
-  logger.info(`Added ${id} to the cache`);
-  return images;
+  try {
+    const images = await fs.readdir(filePath);
+    await cache.set(cacheId, images);
+    logger.info(`Added ${id} to the cache`);
+    return images;
+  } catch (e) {
+    logger.error(`Error reading images for ${type}/${id}: ${e}`);
+    throw e;
+  }
 }
 
-async function getImage(type, id, image) {
+export async function getImage(type, id, image) {
   const parsedPath = path.parse(image);
   const filePath = path.join(imagesDirectory, type, id, image).normalize();
   const requestedFileType =
     parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "webp";
 
-  if (!fs.existsSync(filePath)) {
+  try {
+    await fs.access(filePath, fs.constants.F_OK);
+  } catch (e) {
+    logger.error(`Image ${type}/${id}/${image} doesn't exist`);
     throw new Error(`Image ${type}/${id}/${image} doesn't exist`);
   }
 
@@ -120,11 +142,3 @@ async function getImage(type, id, image) {
     type: mimeTypes.lookup(requestedFileType),
   };
 }
-
-module.exports = {
-  getTypes,
-  getAvailableEntities,
-  getEntity,
-  getAvailableImages,
-  getImage,
-};

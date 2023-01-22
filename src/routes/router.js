@@ -1,5 +1,6 @@
-const Router = require("koa-router");
-const GameController = require("../controllers/classController");
+import Router from "koa-router";
+import GameController from "../controllers/classController.js";
+
 const router = new Router();
 
 router.get("/", GameController.getTypes);
@@ -9,4 +10,4 @@ router.get("/:type/:id", GameController.getEntity);
 router.get("/:type/:id/list", GameController.getImages);
 router.get("/:type/:id/:imageType", GameController.getImage);
 
-module.exports = router;
+export default router;

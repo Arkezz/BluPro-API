@@ -1,12 +1,12 @@
-const logger = require("./modules/logger");
-const Koa = require("koa");
-const { koaBody } = require("koa-body");
-const helmet = require("koa-helmet");
-const cors = require("@koa/cors");
-const compress = require("koa-compress");
-const chalk = require("chalk");
+import logger from "./modules/logger.js";
+import Koa from "koa";
+import { koaBody } from "koa-body";
+import helmet from "koa-helmet";
+import cors from "@koa/cors";
+import compress from "koa-compress";
+import chalk from "chalk";
 
-const router = require("./routes/router");
+import router from "./routes/router.js";
 
 (async () => {
   const app = new Koa();
