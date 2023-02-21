@@ -1,6 +1,6 @@
 {
   "name": "Blade Warden",
-  "description": "Blade Warden is a melee class equipped with a sword and a powerful shield. A class with offensive and defensive skills but mostly focused on survival.The class has a special gauge called “Shield Gauge.” Shield Gauge is necessary to block incoming damage and regenerates if you don't block. If the Shield Gauge reaches “0,” the shield breaks and you won't be able to block for a few seconds",
+  "description": "Blade Warden is a melee class equipped with a sword and a powerful shield. A class with offensive and defensive skills but mostly focused on survival.The class has a special gauge called “Shield Gauge.” Shield Gauge is necessary to block incoming damage and regenerates if you don't block. If the Shield Gauge reaches “0” the shield breaks and you won't be able to block for a few seconds",
   "quote": "A master of sword and shield, this close-range class is the cornerstone to any defense.",
   "stats": [
     {

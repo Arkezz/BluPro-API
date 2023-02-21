@@ -2,6 +2,7 @@ import Router from "koa-router";
 import GameController from "../controllers/classController.js";
 
 const router = new Router();
+//router.prefix("/api");
 
 router.get("/", GameController.getTypes);
 router.get("/:type", GameController.getEntities);
