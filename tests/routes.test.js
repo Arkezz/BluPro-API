@@ -1,7 +1,7 @@
-const { getTypes } = require("../src/modules/filesystem.js");
-const { expect } = require("chai");
-const sinon = require("sinon");
-const logger = require("../src/modules/logger");
+import { getTypes } from "../src/modules/filesystem.js";
+import { expect } from "chai";
+import sinon from "sinon";
+import logger from "../src/modules/logger.js";
 
 describe("getTypes", function () {
   beforeEach(function () {
