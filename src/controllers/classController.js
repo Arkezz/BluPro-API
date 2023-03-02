@@ -4,6 +4,8 @@ import {
   getEntity,
   getAvailableImages,
   getImage,
+  getAvailableVideos,
+  getVideo,
 } from "../modules/filesystem.js";
 
 class GameController {
@@ -105,6 +107,31 @@ class GameController {
       } catch (e) {
         ctx.body = { error: error.message };
       }
+    }
+  }
+
+  static async getVideos(ctx) {
+    const { type, id } = ctx.params;
+
+    try {
+      ctx.body = await getAvailableVideos(type, id);
+    } catch (error) {
+      ctx.status = 404;
+      ctx.body = { error: error.message };
+    }
+  }
+
+  static async getVideo(ctx) {
+    const { type, id, videoType } = ctx.params;
+
+    try {
+      const video = await getVideo(type, id, videoType);
+      console.log(video.type);
+
+      ctx.body = video.stream;
+      ctx.type = "gif";
+    } catch (error) {
+      ctx.body = { error: error.message };
     }
   }
 }

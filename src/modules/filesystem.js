@@ -4,11 +4,13 @@ import path from "path";
 import keyv from "keyv";
 import sharp from "sharp";
 import mimeTypes from "mime-types";
+import { createReadStream } from "fs";
 
 const cache = new keyv();
 
 const dataDirectory = path.join("assets", "data");
 const imagesDirectory = path.join("assets", "images");
+const videosDirectory = path.join("assets", "videos");
 
 export async function getTypes() {
   const found = await cache.get("types");
@@ -139,6 +141,39 @@ export async function getImage(type, id, image) {
 
   return {
     image: await sharp(filePath).toFormat(requestedFileType).toBuffer(),
+    type: mimeTypes.lookup(requestedFileType),
+  };
+}
+
+export async function getAvailableVideos(type, id) {
+  const cacheId = `video-${type}-${id}`.toLowerCase();
+  const found = await cache.get(cacheId);
+
+  if (found) {
+    logger.debug(`Cache hit for video-${type}-${id}`);
+    return found;
+  }
+
+  const filePath = path.join(videosDirectory, type, id).normalize();
+  try {
+    const videos = await fs.readdir(filePath);
+    await cache.set(cacheId, videos);
+    logger.info(`Added ${id} to the cache`);
+    return videos;
+  } catch (e) {
+    logger.error(`Error reading videos for ${type}/${id}: ${e}`);
+    throw e;
+  }
+}
+
+export async function getVideo(type, id, video) {
+  const parsedPath = path.parse(video);
+  const filePath = path.join(videosDirectory, type, id, video).normalize();
+  const requestedFileType =
+    parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "mp4";
+
+  return {
+    stream: await createReadStream(filePath),
     type: mimeTypes.lookup(requestedFileType),
   };
 }
