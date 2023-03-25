@@ -126,7 +126,6 @@ class GameController {
 
     try {
       const video = await getVideo(type, id, videoType);
-      console.log(video.type);
 
       ctx.body = video.stream;
       ctx.type = "gif";

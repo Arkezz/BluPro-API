@@ -170,10 +170,14 @@ export async function getVideo(type, id, video) {
   const parsedPath = path.parse(video);
   const filePath = path.join(videosDirectory, type, id, video).normalize();
   const requestedFileType =
-    parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "mp4";
+    parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "gif";
+
+  const headers = {
+    "Content-Type": mimeTypes.lookup(requestedFileType),
+  };
 
   return {
     stream: await createReadStream(filePath),
-    type: mimeTypes.lookup(requestedFileType),
+    headers,
   };
 }
