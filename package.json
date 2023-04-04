@@ -23,18 +23,18 @@
     "koa-router": "^12.0.0",
     "mime-types": "^2.1.35",
     "pino": "7.0.0-rc.9",
-    "pino-pretty": "^9.1.1",
-    "sharp": "^0.31.2"
+    "pino-pretty": "^9.4.0",
+    "sharp": "^0.31.3"
   },
   "devDependencies": {
     "chai": "^4.3.7",
-    "eslint": "^8.31.0",
-    "eslint-config-prettier": "^8.6.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "install": "^0.13.0",
     "mocha": "^10.2.0",
-    "prettier": "^2.8.2",
-    "sinon": "^15.0.1",
+    "prettier": "^2.8.7",
+    "sinon": "^15.0.3",
     "supertest": "^6.3.3"
   }
 }
