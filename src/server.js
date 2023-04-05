@@ -10,7 +10,7 @@ import router from "./routes/router.js";
 
 (async () => {
   const app = new Koa();
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3100;
 
   app.use(async (ctx, next) => {
     try {
