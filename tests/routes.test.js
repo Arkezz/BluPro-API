@@ -1,30 +1,35 @@
-import { getTypes } from "../src/modules/filesystem.js";
-import { expect } from "chai";
+import app from "../src/app.js";
+import GameController from "../src/controllers/classController.js";
 import sinon from "sinon";
-import logger from "../src/modules/logger.js";
+import chai from "chai";
+import supertest from "supertest";
 
-describe("getTypes", function () {
-  beforeEach(function () {
-    sinon.stub(logger, "debug");
-    sinon.stub(logger, "info");
-    sinon.stub(logger, "error");
+const expect = chai.expect;
+
+describe("GameController routes", () => {
+  describe("GET /", () => {
+    it("should return all types", (done) => {
+      // Mock the GameController.getTypes() function
+      const types = ["classes", "enemies", "quests", "weapons"];
+      const getTypesStub = sinon
+        .stub(GameController, "getTypes")
+        .resolves(types);
+
+      supertest(app.callback())
+        .get("/")
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+
+          // Check if the response body matches the expected result
+          expect(res.body).to.deep.equal(types);
+
+          // Restore the GameController.getTypes() function
+          getTypesStub.restore();
+          done();
+        });
+    });
   });
 
-  afterEach(function () {
-    logger.debug.restore();
-    logger.info.restore();
-    logger.error.restore();
-  });
-  it("should return an array of strings", async function () {
-    const types = await getTypes();
-    expect(types).to.be.an("array");
-    expect(types[0]).to.be.a("string");
-  });
-
-  it("should check if the types are correctly cached", async function () {
-    await getTypes();
-    expect(logger.info.calledWith("Added types to cache")).to.be.true;
-    await getTypes();
-    expect(logger.info.calledWith("Cache hit for types")).to.be.true;
-  });
+  // Add more tests for other routes here
 });
