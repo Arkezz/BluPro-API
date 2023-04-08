@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "API for the popular upcoming game Blue Protocol",
   "type": "module",
-  "main": "src/server.js",
+  "main": "bin/www.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node bin/www.js",
     "test": "mocha 'tests/**/*.js' --recursive --timeout 60000 --exit",
     "lint": "eslint . --ext .js && prettier --check ."
   },
@@ -38,3 +38,4 @@
     "supertest": "^6.3.3"
   }
 }
+
