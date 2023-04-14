@@ -2,16 +2,22 @@
   "name": "blue-protocol-db",
   "version": "1.0.0",
   "description": "API for the popular upcoming game Blue Protocol",
+  "private": true,
   "type": "module",
-  "main": "bin/www.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node bin/www.js",
+    "start": "node dist",
+    "build": "tsc",
+    "watch": "tsc -w",
     "test": "mocha 'tests/**/*.js' --recursive --timeout 60000 --exit",
-    "lint": "eslint . --ext .js && prettier --check ."
+    "lint": "eslint . --ext .js,.ts && prettier --check ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arkezz/blue-protocol-db.git"
+  },
+  "author": "Wuzzy",
+  "license": "OSL-3.0",
   "dependencies": {
     "@koa/cors": "^4.0.0",
     "chalk": "4.1.2",
@@ -29,8 +35,10 @@
   },
   "devDependencies": {
     "@types/koa": "^2.13.6",
+    "@types/koa-compress": "^4.0.3",
     "@types/koa-helmet": "^6.0.4",
     "@types/koa-router": "^7.4.4",
+    "@types/koa__cors": "^4.0.0",
     "@types/mime-types": "^2.1.1",
     "@types/sharp": "^0.31.1",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
