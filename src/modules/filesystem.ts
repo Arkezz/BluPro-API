@@ -142,9 +142,7 @@ export async function getImage(
   const parsedPath = path.parse(image);
   const filePath = path.join(imagesDirectory, type, id, image).normalize();
   const requestedFileType =
-    parsedPath.ext.length > 0
-      ? parsedPath.ext.substring(1)
-      : ("webp" as keyof FormatEnum);
+    parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "webp";
 
   try {
     await fs.access(filePath, fs.constants.F_OK);
