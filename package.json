@@ -24,9 +24,17 @@
     "mime-types": "^2.1.35",
     "pino": "7.0.0-rc.9",
     "pino-pretty": "^9.4.0",
-    "sharp": "^0.31.3"
+    "sharp": "^0.31.3",
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
+    "@types/koa": "^2.13.6",
+    "@types/koa-helmet": "^6.0.4",
+    "@types/koa-router": "^7.4.4",
+    "@types/mime-types": "^2.1.1",
+    "@types/sharp": "^0.31.1",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
     "chai": "^4.3.7",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
@@ -38,4 +46,3 @@
     "supertest": "^6.3.3"
   }
 }
-
