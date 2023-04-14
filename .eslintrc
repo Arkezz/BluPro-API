@@ -1,4 +1,6 @@
 {
+  "root": true,
+  "parser": "@typescript-eslint/parser",
   "extends": ["eslint:recommended", "prettier"],
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
@@ -14,6 +16,7 @@
     "sourceType": "module"
   },
   "env": {
+    "node": true,
     "es6": true
   }
 }

@@ -10,7 +10,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "mocha 'tests/**/*.js' --recursive --timeout 60000 --exit",
-    "lint": "eslint . --ext .js,.ts && prettier --check ."
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts && prettier --check ."
   },
   "repository": {
     "type": "git",

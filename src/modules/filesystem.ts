@@ -1,18 +1,18 @@
 import logger from "./logger.js";
 import fs from "fs/promises";
 import path from "path";
-import keyv from "keyv";
+import Keyv from "keyv";
 import sharp from "sharp";
 import mimeTypes from "mime-types";
-import { createReadStream } from "fs";
+import { createReadStream, ReadStream } from "fs";
 
-const cache = new keyv();
+const cache = new Keyv<string[]>({});
 
 const dataDirectory = path.join("assets", "data");
 const imagesDirectory = path.join("assets", "images");
 const videosDirectory = path.join("assets", "videos");
 
-export async function getTypes() {
+export async function getTypes(): Promise<string[]> {
   const found = await cache.get("types");
   if (found) {
     logger.debug("Cache hit for types");
@@ -32,7 +32,7 @@ export async function getTypes() {
   }
 }
 
-export async function getAvailableEntities(type) {
+export async function getAvailableEntities(type: string): Promise<string[]> {
   const found = await cache.get(`data-${type}`.toLowerCase());
   if (found) {
     logger.debug(`Cache hit for data-${type}`);
@@ -57,7 +57,11 @@ export async function getAvailableEntities(type) {
   }
 }
 
-export async function getEntity(type, id, lang = "en") {
+export async function getEntity(
+  type: string,
+  id: string,
+  lang = "en"
+): Promise<Record<string, any>> {
   const cacheId = `data-${type}-${id}-${lang}`.toLowerCase();
   const found = await cache.get(cacheId);
   if (found) {
@@ -88,7 +92,7 @@ export async function getEntity(type, id, lang = "en") {
 
   try {
     const file = await fs.readFile(filePath);
-    const entity = JSON.parse(file);
+    const entity = JSON.parse(file.toString());
     await cache.set(cacheId, entity);
     logger.info(`Added ${id} in ${lang} to the cache`);
     return entity;
@@ -100,9 +104,13 @@ export async function getEntity(type, id, lang = "en") {
   }
 }
 
-export async function getAvailableImages(type, id) {
+export async function getAvailableImages(
+  type: string,
+  id: string
+): Promise<string[]> {
   const cacheId = `image-${type}-${id}`.toLowerCase();
   const found = await cache.get(cacheId);
+
   if (found) {
     logger.debug(`Cache hit for image-${type}-${id}`);
     return found;
@@ -126,11 +134,17 @@ export async function getAvailableImages(type, id) {
   }
 }
 
-export async function getImage(type, id, image) {
+export async function getImage(
+  type: string,
+  id: string,
+  image: string
+): Promise<{ image: Buffer; type: string }> {
   const parsedPath = path.parse(image);
   const filePath = path.join(imagesDirectory, type, id, image).normalize();
   const requestedFileType =
-    parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "webp";
+    parsedPath.ext.length > 0
+      ? parsedPath.ext.substring(1)
+      : ("webp" as keyof FormatEnum);
 
   try {
     await fs.access(filePath, fs.constants.F_OK);
@@ -141,11 +155,14 @@ export async function getImage(type, id, image) {
 
   return {
     image: await sharp(filePath).toFormat(requestedFileType).toBuffer(),
-    type: mimeTypes.lookup(requestedFileType),
+    type: mimeTypes.lookup(requestedFileType) || "",
   };
 }
 
-export async function getAvailableVideos(type, id) {
+export async function getAvailableVideos(
+  type: string,
+  id: string
+): Promise<string[]> {
   const cacheId = `video-${type}-${id}`.toLowerCase();
   const found = await cache.get(cacheId);
 
@@ -166,15 +183,25 @@ export async function getAvailableVideos(type, id) {
   }
 }
 
-export async function getVideo(type, id, video) {
+export async function getVideo(
+  type: string,
+  id: string,
+  video: string
+): Promise<{ stream: ReadStream; headers: { "Content-Type": string } }> {
   const parsedPath = path.parse(video);
   const filePath = path.join(videosDirectory, type, id, video).normalize();
   const requestedFileType =
     parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "gif";
-
   const headers = {
-    "Content-Type": mimeTypes.lookup(requestedFileType),
+    "Content-Type": mimeTypes.lookup(requestedFileType) || "",
   };
+
+  try {
+    await fs.access(filePath, fs.constants.F_OK);
+  } catch (e) {
+    logger.error(`Video ${type}/${id}/${video} doesn't exist`);
+    throw new Error(`Video ${type}/${id}/${video} doesn't exist`);
+  }
 
   return {
     stream: await createReadStream(filePath),

@@ -8,8 +8,10 @@ import {
   getVideo,
 } from "../modules/filesystem.js";
 
+import { Context } from "koa";
+
 class GameController {
-  static async getTypes(ctx) {
+  static async getTypes(ctx: Context): Promise<void> {
     try {
       ctx.body = await getTypes();
     } catch (error) {
@@ -20,7 +22,7 @@ class GameController {
     }
   }
 
-  static async getEntities(ctx) {
+  static async getEntities(ctx: Context): Promise<void> {
     const { type } = ctx.params;
 
     try {
@@ -34,7 +36,7 @@ class GameController {
     }
   }
 
-  static async getEntity(ctx) {
+  static async getEntity(ctx: Context): Promise<void> {
     const { type, id } = ctx.params;
     const { lang } = ctx.query;
 
@@ -48,7 +50,7 @@ class GameController {
     }
   }
 
-  static async getAllEntities(ctx) {
+  static async getAllEntities(ctx: Context): Promise<void> {
     const { type } = ctx.params;
     const { lang, ...params } = ctx.query;
 
@@ -80,7 +82,7 @@ class GameController {
     }
   }
 
-  static async getImages(ctx) {
+  static async getImages(ctx: Context): Promise<void> {
     const { type, id } = ctx.params;
 
     try {
@@ -91,7 +93,7 @@ class GameController {
     }
   }
 
-  static async getImage(ctx) {
+  static async getImage(ctx: Context): Promise<void> {
     const { type, id, imageType } = ctx.params;
 
     try {
@@ -110,7 +112,7 @@ class GameController {
     }
   }
 
-  static async getVideos(ctx) {
+  static async getVideos(ctx: Context): Promise<void> {
     const { type, id } = ctx.params;
 
     try {
@@ -121,7 +123,7 @@ class GameController {
     }
   }
 
-  static async getVideo(ctx) {
+  static async getVideo(ctx: Context): Promise<void> {
     const { type, id, videoType } = ctx.params;
 
     try {

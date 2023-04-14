@@ -1,25 +1,26 @@
 import logger from "./modules/logger.js";
 import Koa from "koa";
+import { Context } from "koa";
 import { koaBody } from "koa-body";
 import helmet from "koa-helmet";
 import cors from "@koa/cors";
 import compress from "koa-compress";
 
-import router from "./routes/router.js";
+import router from "./routes/index.js";
 
-const app = new Koa();
+const app = new Koa<{}, Context>();
 
-app.use(async (ctx, next) => {
+app.use(async (ctx: Context, next: () => Promise<void>) => {
   try {
     await next();
   } catch (error) {
     ctx.status = error.status || 500;
     ctx.body = error.message;
-    ctx.app.emit("error", error, ctx);
+    app.emit("error", error, ctx);
   }
 });
 
-app.on("error", (error, ctx) => {
+app.on("error", (error: Error) => {
   logger.error(error);
 });
 
