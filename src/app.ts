@@ -7,7 +7,7 @@ import compress from "koa-compress";
 import "dotenv/config";
 
 import router from "./routes/index.js";
-import { errorHandler } from "./modules/errorHandler.js";
+import errorHandler from "./modules/errorHandler.js";
 
 const app = new Koa<{}, Context>();
 

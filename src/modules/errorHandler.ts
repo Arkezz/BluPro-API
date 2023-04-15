@@ -8,7 +8,7 @@ interface ErrorResponse<T = unknown> {
   stack?: string;
 }
 
-export const errorHandler = async (ctx: Context, next: Next) => {
+const errorHandler = async (ctx: Context, next: Next) => {
   try {
     await next();
   } catch (error) {
@@ -35,3 +35,5 @@ export const errorHandler = async (ctx: Context, next: Next) => {
     ctx.body = errorResponse;
   }
 };
+
+export default errorHandler;

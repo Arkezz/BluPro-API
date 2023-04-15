@@ -30,7 +30,8 @@ class GameController {
     const lang = ctx.query.lang as string;
 
     const entities = await getAvailableEntities(type);
-    if (!entities) ctx.throw(404, "No entities found");
+    if (!entities)
+      ctx.throw(404, `No entities found for the specified type: ${type}`);
 
     const entityObjects = await Promise.all(
       entities.map(async (id) => {
