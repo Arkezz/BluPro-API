@@ -1,3 +1,4 @@
+import { Context } from "koa";
 import {
   getTypes,
   getAvailableEntities,
@@ -8,7 +9,6 @@ import {
   getVideo,
 } from "../modules/filesystem.js";
 
-import { Context } from "koa";
 class GameController {
   static async getTypes(ctx: Context): Promise<void> {
     ctx.body = await getTypes();
