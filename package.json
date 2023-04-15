@@ -9,7 +9,7 @@
     "start": "node dist",
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "mocha 'tests/**/*.js' --recursive --timeout 60000 --exit",
+    "test": "ava --verbose",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint": "eslint . --ext .ts"
   },
@@ -37,6 +37,7 @@
     "typescript": "^5.0.4"
   },
   "devDependencies": {
+    "@ava/typescript": "^4.0.0",
     "@types/koa": "^2.13.6",
     "@types/koa-compress": "^4.0.3",
     "@types/koa-conditional-get": "^2.0.0",
@@ -47,14 +48,25 @@
     "@types/koa__cors": "^4.0.0",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^18.15.11",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "ava": "^5.2.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-ava": "^14.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "koa-conditional-get": "^3.0.0",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "supertest": "^6.3.3"
+  },
+  "ava": {
+    "typescript": {
+      "rewritePaths": {
+        "src/": "dist/"
+      },
+      "compile": false
+    }
   }
 }
