@@ -9,7 +9,7 @@
     "start": "node dist",
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "ava --verbose",
+    "test": "ava",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint": "eslint . --ext .ts"
   },
@@ -70,3 +70,4 @@
     }
   }
 }
+
