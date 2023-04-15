@@ -2,7 +2,7 @@ import logger from "./logger.js";
 import fs from "fs/promises";
 import path from "path";
 import Keyv from "keyv";
-import sharp from "sharp";
+import sharp, { FormatEnum } from "sharp";
 import mimeTypes from "mime-types";
 import { createReadStream, ReadStream } from "fs";
 
@@ -84,7 +84,9 @@ export async function getEntity(
     try {
       await fs.access(englishPath, fs.constants.F_OK);
       errorMessage += `, language en would exist`;
-    } catch (e) {}
+    } catch (e) {
+      errorMessage += `, language en does not exist`;
+    }
 
     logger.error(errorMessage);
     throw new Error(errorMessage);
@@ -141,8 +143,9 @@ export async function getImage(
 ): Promise<{ image: Buffer; type: string }> {
   const parsedPath = path.parse(image);
   const filePath = path.join(imagesDirectory, type, id, image).normalize();
-  const requestedFileType =
+  const requestedFileType: string =
     parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "webp";
+  const fileType = requestedFileType as keyof FormatEnum;
 
   try {
     await fs.access(filePath, fs.constants.F_OK);
@@ -152,8 +155,8 @@ export async function getImage(
   }
 
   return {
-    image: await sharp(filePath).toFormat(requestedFileType).toBuffer(),
-    type: mimeTypes.lookup(requestedFileType) || "",
+    image: await sharp(filePath).toFormat(fileType).toBuffer(),
+    type: mimeTypes.lookup(requestedFileType) || "plain/text",
   };
 }
 

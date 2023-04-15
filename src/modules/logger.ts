@@ -1,16 +1,14 @@
 import pino from "pino";
-import pinoPretty from "pino-pretty";
 
-const logger = pino(
-  {
-    prettyPrint: {
+const logger = pino({
+  transport: {
+    target: "pino-pretty",
+    options: {
       colorize: true,
+      translateTime: "SYS:mm-dd-yyyy hh:mm:ss TT",
       ignore: "pid,hostname",
-      translateTime: true,
-      levelFirst: true,
     },
   },
-  pinoPretty()
-);
+});
 
 export default logger;
