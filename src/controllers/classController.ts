@@ -28,6 +28,7 @@ class GameController {
   static async getAllEntities(ctx: Context): Promise<void> {
     const { type } = ctx.params;
     const lang = ctx.query.lang as string;
+    //const { ...params } = ctx.query;
 
     const entities = await getAvailableEntities(type);
     if (!entities)

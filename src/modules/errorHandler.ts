@@ -24,10 +24,8 @@ const errorHandler = async (ctx: Context, next: Next) => {
     }
 
     if (process.env.NODE_ENV === "production") {
-      // Log the error in a centralized logging service
       logger.error(error);
     } else {
-      // Include the error stack in the error response in non-production environments
       errorResponse.stack = error.stack;
     }
 
