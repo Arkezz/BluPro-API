@@ -9,7 +9,7 @@
     "start": "node dist",
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "ava",
+    "test": "set NODE_ENV=test&& ava ",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint": "eslint . --ext .ts"
   },

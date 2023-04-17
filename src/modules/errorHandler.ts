@@ -13,7 +13,7 @@ const errorHandler = async (ctx: Context, next: Next) => {
     await next();
   } catch (error) {
     const {
-      status = 500,
+      status = error ? error.status : 500,
       message = "Internal Server Error",
       data = undefined,
     } = error instanceof Error ? { message: error.message } : error;
@@ -33,5 +33,17 @@ const errorHandler = async (ctx: Context, next: Next) => {
     ctx.body = errorResponse;
   }
 };
+
+export class CustomError extends Error {
+  status: number;
+  data?: unknown;
+
+  constructor(status: number, message: string, data?: unknown) {
+    super(message);
+    this.status = status;
+    this.data = data;
+    Object.setPrototypeOf(this, CustomError.prototype);
+  }
+}
 
 export default errorHandler;

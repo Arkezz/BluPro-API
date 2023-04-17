@@ -3,6 +3,7 @@ import path from "path";
 import sharp, { FormatEnum } from "sharp";
 import mimeTypes from "mime-types";
 import { createReadStream, ReadStream } from "fs";
+import { CustomError } from "./errorHandler.js";
 
 const dataDirectory = path.join("assets", "data");
 const imagesDirectory = path.join("assets", "images");
@@ -23,7 +24,7 @@ export async function getAvailableEntities(type: string): Promise<string[]> {
   try {
     await fs.access(filePath, fs.constants.F_OK);
   } catch (e) {
-    throw new Error(`Type ${type} not found`);
+    throw new CustomError(404, `Type ${type} not found`);
   }
 
   try {
@@ -59,7 +60,7 @@ export async function getEntity(
       // Do nothing
     }
 
-    throw new Error(errorMessage);
+    throw new CustomError(404, errorMessage);
   }
 
   try {
@@ -108,7 +109,7 @@ export async function getImage(
   try {
     await fs.access(filePath, fs.constants.F_OK);
   } catch (e) {
-    throw new Error(`Image ${image} doesnt exist for ${type}/${id}`);
+    throw new CustomError(404, `Image ${image} doesnt exist for ${type}/${id}`);
   }
 
   return {
@@ -147,7 +148,7 @@ export async function getVideo(
   try {
     await fs.access(filePath, fs.constants.F_OK);
   } catch (e) {
-    throw new Error(`Video ${type}/${id}/${video} doesn't exist`);
+    throw new CustomError(404, `Video ${type}/${id}/${video} doesn't exist`);
   }
 
   return {

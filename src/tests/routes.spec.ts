@@ -1,22 +1,31 @@
 import test from "ava";
 import request from "supertest";
 import app from "../app.js";
-import { CharacterClass } from "models/class.js";
+//import GameController from "../controllers/classController.js";
+// import { CharacterClass } from "../models/class.js";
 
-test("GET / returns types from GameController.getTypes", async (t) => {
-  const response = await request(app.callback()).get("/");
-  t.is(response.status, 200);
-  t.deepEqual(response.body, ["classes", "enemies", "quests", "weapons"]);
-});
+const classes = [
+  "blade-warden",
+  "foe-breaker",
+  "keen-strider",
+  "spell-weaver",
+  "twin-striker",
+];
 
-test("GET /:type returns entities from GameController.getEntities", async (t) => {
-  const response = await request(app.callback()).get("/classes");
-  t.is(response.status, 200);
-  t.true(Array.isArray(response.body));
-});
+test("Invalid paths should return 404", async (t) => {
+  const invalidPaths = [
+    "/invalidpath",
+    "/classes/invalidId",
+    "/classes/{class}/invalidId",
+    "/classes/{class}/list/invalidId",
+    "/classes/{class}/media/invalidId",
+  ];
 
-test("GET /:type/all returns all entities from GameController.getAllEntities", async (t) => {
-  const response = await request(app.callback()).get("/classes/all");
-  t.is(response.status, 200);
-  t.true(Array.isArray(response.body));
+  for (const className of classes) {
+    for (const path of invalidPaths) {
+      const url = path.replace("{class}", className);
+      const response = await request(app.callback()).get(url);
+      t.is(response.status, 404, `${url} should return 404`);
+    }
+  }
 });

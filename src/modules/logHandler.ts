@@ -7,7 +7,7 @@ export default async function loggerMiddleware(ctx: Context, next: Next) {
   const { method, url, status, path } = ctx;
   if (status === 304) {
     logger.info(`[${method}] ${url} - ${status} cache hit`);
-  } else if (path !== "/favicon.ico") {
+  } else if (path !== "/favicon.ico" && process.env.NODE_ENV !== "test") {
     logger.info(`[${method}] ${url}`);
   }
 }
