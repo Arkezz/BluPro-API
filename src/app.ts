@@ -1,4 +1,4 @@
-import Koa, { Context } from "koa";
+import Koa from "koa";
 import { koaBody } from "koa-body";
 import helmet from "koa-helmet";
 import cors from "@koa/cors";
@@ -12,7 +12,7 @@ import router from "./routes/index.js";
 import errorHandler from "./modules/errorHandler.js";
 import logHandler from "./modules/logHandler.js";
 
-const app = new Koa<{}, Context>();
+const app = new Koa();
 const serveFavicon = favicon("./favicon.ico");
 
 app.use(logHandler);
@@ -20,8 +20,8 @@ app.use(errorHandler);
 
 app.use(helmet());
 app.use(cors());
-app.use(compress());
 app.use(koaBody());
+app.use(compress());
 app.use(conditional());
 app.use(etag());
 app.use(serveFavicon);
