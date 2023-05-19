@@ -15,17 +15,15 @@ import logHandler from "./modules/logHandler.js";
 const app = new Koa();
 const serveFavicon = favicon("./favicon.ico");
 
-app.use(logHandler);
-app.use(errorHandler);
-
 app.use(helmet());
 app.use(cors());
 app.use(koaBody());
-app.use(compress());
+app.use(errorHandler);
 app.use(conditional());
 app.use(etag());
 app.use(serveFavicon);
-
+app.use(logHandler);
 app.use(router.routes());
+app.use(compress());
 
 export default app;

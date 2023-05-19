@@ -34,7 +34,7 @@ test("All routes should return 200", async (t) => {
 // Test invalid paths
 test("Invalid paths should return 404", async (t) => {
   const invalidPaths = [
-    "/",
+    "/invalidId",
     "/classes/invalidId",
     "/classes/{class}/invalidId",
     "/classes/{class}/list/invalidId",
