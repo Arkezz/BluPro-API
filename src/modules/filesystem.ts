@@ -40,26 +40,20 @@ export async function getEntity(
   type: string,
   id: string,
   lang = "en"
-): Promise<Record<string, any>> {
-  const filePath = path
-    .join(dataDirectory, type, id.toLowerCase(), `${lang}.json`)
-    .normalize();
+): Promise<Record<string, unknown>> {
+  const filePath = path.resolve(
+    dataDirectory,
+    type,
+    id.toLowerCase(),
+    `${lang}.json`
+  );
 
   try {
-    await fs.access(filePath, fs.constants.F_OK);
+    await fs.access(filePath);
   } catch (e) {
-    let errorMessage = `Entity ${type}/${id} for language ${lang} not found`;
-    const englishPath = path
-      .join(dataDirectory, type, id.toLowerCase(), "en.json")
-      .normalize();
-
-    try {
-      await fs.access(englishPath, fs.constants.F_OK);
-      errorMessage += `, language en would exist`;
-    } catch (e) {
-      // Do nothing
-    }
-
+    const errorMessage = `Entity ${type}/${id} for language ${lang} not found. ${
+      lang !== "en" ? `Try language en.` : ""
+    }`;
     throw new CustomError(404, errorMessage);
   }
 
@@ -74,7 +68,6 @@ export async function getEntity(
     );
   }
 }
-
 export async function getAvailableImages(
   type: string,
   id: string
