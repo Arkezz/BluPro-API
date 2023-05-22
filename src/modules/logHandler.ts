@@ -2,15 +2,13 @@ import { Context, Next } from "koa";
 import logger from "./logger.js";
 
 export default async function loggerMiddleware(ctx: Context, next: Next) {
-  const { method, url, path } = ctx;
+  const { method, url, path, status, request, response } = ctx;
   const startTimestamp = new Date();
 
   await next();
 
   const endTimestamp = new Date();
   const responseTime = endTimestamp.getTime() - startTimestamp.getTime();
-  const status = ctx.status;
-  const { request, response } = ctx;
 
   if (status === 304) {
     logger.info(`[${method}] ${url} - ${status} cache hit`);

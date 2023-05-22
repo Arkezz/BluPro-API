@@ -15,7 +15,7 @@ export async function getTypes(): Promise<string[]> {
 
     return types;
   } catch (e) {
-    throw new Error(`Error reading types: ${e}`);
+    throw new CustomError(500, `Error reading types: ${e.message}`);
   }
 }
 
@@ -32,7 +32,10 @@ export async function getAvailableEntities(type: string): Promise<string[]> {
 
     return entities;
   } catch (e) {
-    throw new Error(`Error reading entities for ${type}: ${e}`);
+    throw new CustomError(
+      500,
+      `Error reading entities for ${type}: ${e.message}`
+    );
   }
 }
 
@@ -63,8 +66,9 @@ export async function getEntity(
 
     return entity;
   } catch (e) {
-    throw new Error(
-      `Error reading or parsing entity ${type}/${id} for language ${lang}: ${e}`
+    throw new CustomError(
+      500,
+      `Error reading or parsing entity ${type}/${id} for language ${lang}: ${e.message}`
     );
   }
 }
@@ -76,7 +80,10 @@ export async function getAvailableImages(
   try {
     await fs.access(filePath, fs.constants.F_OK);
   } catch (e) {
-    throw new Error(`No images for ${type}/${id} exist`);
+    throw new CustomError(
+      500,
+      `Error reading images for ${type}/${id}: ${e.message}`
+    );
   }
 
   try {
@@ -121,7 +128,10 @@ export async function getAvailableVideos(
 
     return videos;
   } catch (e) {
-    throw new Error(`Error reading videos for ${type}/${id}: ${e}`);
+    throw new CustomError(
+      500,
+      `Error reading videos for ${type}/${id}: ${e.message}`
+    );
   }
 }
 
