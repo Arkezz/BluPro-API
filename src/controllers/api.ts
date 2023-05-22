@@ -9,7 +9,7 @@ import {
   getVideo,
 } from "../modules/filesystem.js";
 
-class GameController {
+class APIController {
   static async getTypes(ctx: Context): Promise<void> {
     ctx.body = await getTypes();
   }
@@ -81,4 +81,4 @@ class GameController {
   }
 }
 
-export default GameController;
+export default APIController;

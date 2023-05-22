@@ -1,38 +1,38 @@
 import Router, { RouterContext } from "koa-router";
-import GameController from "../controllers/classController.js";
+import { default as API } from "../controllers/api.js";
 
 const router: Router = new Router();
 
 router.get("/", async (ctx: RouterContext) => {
-  await GameController.getTypes(ctx);
+  await API.getTypes(ctx);
 });
 
 router.get("/:type", async (ctx: RouterContext) => {
-  await GameController.getEntities(ctx);
+  await API.getEntities(ctx);
 });
 
 router.get("/:type/all", async (ctx: RouterContext) => {
-  await GameController.getAllEntities(ctx);
+  await API.getAllEntities(ctx);
 });
 
 router.get("/:type/:id", async (ctx: RouterContext) => {
-  await GameController.getEntity(ctx);
+  await API.getEntity(ctx);
 });
 
 router.get("/:type/:id/list", async (ctx: RouterContext) => {
-  await GameController.getImages(ctx);
+  await API.getImages(ctx);
 });
 
 router.get("/:type/:id/list/:imageType", async (ctx: RouterContext) => {
-  await GameController.getImage(ctx);
+  await API.getImage(ctx);
 });
 
 router.get("/:type/:id/media", async (ctx: RouterContext) => {
-  await GameController.getVideos(ctx);
+  await API.getVideos(ctx);
 });
 
 router.get("/:type/:id/media/:videoType", async (ctx: RouterContext) => {
-  await GameController.getVideo(ctx);
+  await API.getVideo(ctx);
 });
 
 export default router;
