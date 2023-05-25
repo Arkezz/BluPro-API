@@ -1,5 +1,5 @@
 {
-  "name": "blue-protocol-db",
+  "name": "bluepro-api",
   "version": "1.0.0",
   "description": "API for the popular upcoming game Blue Protocol",
   "private": true,
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Arkezz/blue-protocol-db.git"
+    "url": "git+https://github.com/Arkezz/BluPro-API.git"
   },
   "author": "Wuzzy",
   "license": "OSL-3.0",
