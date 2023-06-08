@@ -95,11 +95,16 @@ export async function getAvailableImages(
   }
 }
 
+interface Image {
+  image: Buffer;
+  type: string;
+}
+
 export async function getImage(
   type: string,
   id: string,
   image: string
-): Promise<{ image: Buffer; type: string }> {
+): Promise<Image> {
   const parsedPath = path.parse(image);
   const filePath = path.join(imagesDirectory, type, id, image).normalize();
   const requestedFileType: string =
@@ -135,15 +140,20 @@ export async function getAvailableVideos(
   }
 }
 
+interface Video {
+  stream: ReadStream;
+  headers: { "Content-Type": string };
+}
+
 export async function getVideo(
   type: string,
   id: string,
   video: string
-): Promise<{ stream: ReadStream; headers: { "Content-Type": string } }> {
+): Promise<Video> {
   const parsedPath = path.parse(video);
   const filePath = path.join(videosDirectory, type, id, video).normalize();
   const requestedFileType =
-    parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "gif";
+    parsedPath.ext.length > 0 ? parsedPath.ext?.substring(1) : "gif";
   const headers = {
     "Content-Type": mimeTypes.lookup(requestedFileType) || "",
   };

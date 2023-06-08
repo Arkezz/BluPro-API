@@ -12,16 +12,16 @@ const classes = [
   "twin-striker",
 ];
 
+const paths = [
+  "/",
+  "/classes",
+  "/classes/{class}",
+  "/classes/{class}/list",
+  // "/classes/{class}/media",
+];
+
 //Test all routes for each class
 test("All routes should return 200", async (t) => {
-  const paths = [
-    "/",
-    "/classes",
-    "/classes/{class}",
-    "/classes/{class}/list",
-    // "/classes/{class}/media",
-  ];
-
   for (const className of classes) {
     for (const path of paths) {
       const url = path.replace("{class}", className);

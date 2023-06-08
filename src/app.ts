@@ -20,9 +20,9 @@ app.use(cors());
 app.use(koaBody());
 app.use(errorHandler);
 app.use(conditional());
+app.use(logHandler);
 app.use(etag());
 app.use(serveFavicon);
-app.use(logHandler);
 app.use(router.routes());
 app.use(compress());
 
