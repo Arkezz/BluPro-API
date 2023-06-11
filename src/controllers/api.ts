@@ -2,23 +2,23 @@ import { Context } from "koa";
 import * as filesystem from "../modules/filesystem.js";
 import { CustomError } from "../modules/errorHandler.js";
 
-class APIController {
-  static async getTypes(ctx: Context): Promise<void> {
+const APIController = {
+  async getTypes(ctx: Context) {
     ctx.body = await filesystem.getTypes();
-  }
+  },
 
-  static async getEntities(ctx: Context): Promise<void> {
+  async getEntities(ctx: Context) {
     const { type } = ctx.params;
     ctx.body = await filesystem.getAvailableEntities(type);
-  }
+  },
 
-  static async getEntity(ctx: Context): Promise<void> {
+  async getEntity(ctx: Context) {
     const { type, id } = ctx.params;
     const lang = ctx.query.lang as string;
     ctx.body = await filesystem.getEntity(type, id, lang);
-  }
+  },
 
-  static async getAllEntities(ctx: Context): Promise<void> {
+  async getAllEntities(ctx: Context) {
     const { type } = ctx.params;
     const lang = ctx.query.lang as string;
     const { ...params } = ctx.query;
@@ -44,33 +44,33 @@ class APIController {
     });
 
     ctx.body = filteredEntities;
-  }
+  },
 
-  static async getImages(ctx: Context): Promise<void> {
+  async getImages(ctx: Context) {
     const { type, id } = ctx.params;
     ctx.body = await filesystem.getAvailableImages(type, id);
-  }
+  },
 
-  static async getImage(ctx: Context): Promise<void> {
+  async getImage(ctx: Context) {
     const { type, id, imageType } = ctx.params;
     const image = await filesystem.getImage(type, id, imageType);
 
     ctx.body = image.image;
     ctx.type = image.type;
-  }
+  },
 
-  static async getVideos(ctx: Context): Promise<void> {
+  async getVideos(ctx: Context) {
     const { type, id } = ctx.params;
     ctx.body = await filesystem.getAvailableVideos(type, id);
-  }
+  },
 
-  static async getVideo(ctx: Context): Promise<void> {
+  async getVideo(ctx: Context) {
     const { type, id, videoType } = ctx.params;
     const video = await filesystem.getVideo(type, id, videoType);
 
     ctx.body = video.stream;
     ctx.type = video.headers["Content-Type"];
-  }
-}
+  },
+};
 
 export default APIController;

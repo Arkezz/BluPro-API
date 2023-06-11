@@ -3,6 +3,7 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
+    "plugin:unicorn/recommended",
     "plugin:ava/recommended",
     "plugin:promise/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -16,7 +17,10 @@
         "endOfLine": "crlf"
       }
     ],
-    "ava/assertion-arguments": "error"
+    "ava/assertion-arguments": "error",
+    //unicorn rules
+    "unicorn/filename-case": "off",
+    "unicorn/prevent-abbreviations": "off"
   },
   "parserOptions": {
     "ecmaVersion": "latest",

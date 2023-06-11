@@ -1,8 +1,8 @@
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 import sharp, { FormatEnum } from "sharp";
 import mimeTypes from "mime-types";
-import { createReadStream, ReadStream } from "fs";
+import { createReadStream, ReadStream } from "node:fs";
 import { CustomError } from "./errorHandler.js";
 
 const dataDirectory = path.join("assets", "data");
@@ -14,8 +14,8 @@ export async function getTypes(): Promise<string[]> {
     const types = await fs.readdir(dataDirectory);
 
     return types;
-  } catch (e) {
-    throw new CustomError(500, `Error reading types: ${e.message}`);
+  } catch (error) {
+    throw new CustomError(500, `Error reading types: ${error.message}`);
   }
 }
 
@@ -23,7 +23,7 @@ export async function getAvailableEntities(type: string): Promise<string[]> {
   const filePath = path.join(dataDirectory, type);
   try {
     await fs.access(filePath, fs.constants.F_OK);
-  } catch (e) {
+  } catch {
     throw new CustomError(404, `Type ${type} not found`);
   }
 
@@ -31,10 +31,10 @@ export async function getAvailableEntities(type: string): Promise<string[]> {
     const entities = await fs.readdir(filePath);
 
     return entities;
-  } catch (e) {
+  } catch (error) {
     throw new CustomError(
       500,
-      `Error reading entities for ${type}: ${e.message}`
+      `Error reading entities for ${type}: ${error.message}`
     );
   }
 }
@@ -53,7 +53,7 @@ export async function getEntity(
 
   try {
     await fs.access(filePath);
-  } catch (e) {
+  } catch {
     const errorMessage = `Entity ${type}/${id} for language ${lang} not found. ${
       lang !== "en" ? `Try language en.` : ""
     }`;
@@ -65,10 +65,10 @@ export async function getEntity(
     const entity = JSON.parse(file.toString());
 
     return entity;
-  } catch (e) {
+  } catch (error) {
     throw new CustomError(
       500,
-      `Error reading or parsing entity ${type}/${id} for language ${lang}: ${e.message}`
+      `Error reading or parsing entity ${type}/${id} for language ${lang}: ${error.message}`
     );
   }
 }
@@ -79,10 +79,10 @@ export async function getAvailableImages(
   const filePath = path.join(imagesDirectory, type, id).normalize();
   try {
     await fs.access(filePath, fs.constants.F_OK);
-  } catch (e) {
+  } catch (error) {
     throw new CustomError(
       500,
-      `Error reading images for ${type}/${id}: ${e.message}`
+      `Error reading images for ${type}/${id}: ${error.message}`
     );
   }
 
@@ -90,8 +90,8 @@ export async function getAvailableImages(
     const images = await fs.readdir(filePath);
 
     return images;
-  } catch (e) {
-    throw new Error(`Error reading images for ${type}/${id}: ${e}`);
+  } catch (error) {
+    throw new Error(`Error reading images for ${type}/${id}: ${error}`);
   }
 }
 
@@ -108,12 +108,12 @@ export async function getImage(
   const parsedPath = path.parse(image);
   const filePath = path.join(imagesDirectory, type, id, image).normalize();
   const requestedFileType: string =
-    parsedPath.ext.length > 0 ? parsedPath.ext.substring(1) : "webp";
+    parsedPath.ext.length > 0 ? parsedPath.ext.slice(1) : "webp";
   const fileType = requestedFileType as keyof FormatEnum;
 
   try {
     await fs.access(filePath, fs.constants.F_OK);
-  } catch (e) {
+  } catch {
     throw new CustomError(404, `Image ${image} doesnt exist for ${type}/${id}`);
   }
 
@@ -132,10 +132,10 @@ export async function getAvailableVideos(
     const videos = await fs.readdir(filePath);
 
     return videos;
-  } catch (e) {
+  } catch (error) {
     throw new CustomError(
       500,
-      `Error reading videos for ${type}/${id}: ${e.message}`
+      `Error reading videos for ${type}/${id}: ${error.message}`
     );
   }
 }
@@ -153,14 +153,14 @@ export async function getVideo(
   const parsedPath = path.parse(video);
   const filePath = path.join(videosDirectory, type, id, video).normalize();
   const requestedFileType =
-    parsedPath.ext.length > 0 ? parsedPath.ext?.substring(1) : "gif";
+    parsedPath.ext.length > 0 ? parsedPath.ext?.slice(1) : "gif";
   const headers = {
     "Content-Type": mimeTypes.lookup(requestedFileType) || "",
   };
 
   try {
     await fs.access(filePath, fs.constants.F_OK);
-  } catch (e) {
+  } catch {
     throw new CustomError(404, `Video ${type}/${id}/${video} doesn't exist`);
   }
 
