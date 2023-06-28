@@ -55,7 +55,7 @@ export async function getEntity(
     await fs.access(filePath);
   } catch {
     const errorMessage = `Entity ${type}/${id} for language ${lang} not found. ${
-      lang !== "en" ? `Try language en.` : ""
+      lang === "en" ? "" : `Try language en.`
     }`;
     throw new CustomError(404, errorMessage);
   }

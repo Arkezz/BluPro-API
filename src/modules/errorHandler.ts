@@ -15,11 +15,11 @@ const errorHandler = async (ctx: Context, next: Next) => {
     const {
       status = error ? error.status : 500,
       message = "Internal Server Error",
-      data = undefined,
+      data,
     } = error instanceof Error ? { message: error.message } : error;
 
     const errorResponse: ErrorResponse = { status, message };
-    if (data) {
+    if (data !== undefined) {
       errorResponse.data = data;
     }
 

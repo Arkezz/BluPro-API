@@ -3,22 +3,22 @@ import * as filesystem from "../modules/filesystem.js";
 import { CustomError } from "../modules/errorHandler.js";
 
 const APIController = {
-  async getTypes(ctx: Context) {
+  async getTypes(ctx: Context): Promise<void> {
     ctx.body = await filesystem.getTypes();
   },
 
-  async getEntities(ctx: Context) {
+  async getEntities(ctx: Context): Promise<void> {
     const { type } = ctx.params;
     ctx.body = await filesystem.getAvailableEntities(type);
   },
 
-  async getEntity(ctx: Context) {
+  async getEntity(ctx: Context): Promise<void> {
     const { type, id } = ctx.params;
     const lang = ctx.query.lang as string;
     ctx.body = await filesystem.getEntity(type, id, lang);
   },
 
-  async getAllEntities(ctx: Context) {
+  async getAllEntities(ctx: Context): Promise<void> {
     const { type } = ctx.params;
     const lang = ctx.query.lang as string;
     const { ...params } = ctx.query;
@@ -46,12 +46,12 @@ const APIController = {
     ctx.body = filteredEntities;
   },
 
-  async getImages(ctx: Context) {
+  async getImages(ctx: Context): Promise<void> {
     const { type, id } = ctx.params;
     ctx.body = await filesystem.getAvailableImages(type, id);
   },
 
-  async getImage(ctx: Context) {
+  async getImage(ctx: Context): Promise<void> {
     const { type, id, imageType } = ctx.params;
     const image = await filesystem.getImage(type, id, imageType);
 
@@ -59,12 +59,12 @@ const APIController = {
     ctx.type = image.type;
   },
 
-  async getVideos(ctx: Context) {
+  async getVideos(ctx: Context): Promise<void> {
     const { type, id } = ctx.params;
     ctx.body = await filesystem.getAvailableVideos(type, id);
   },
 
-  async getVideo(ctx: Context) {
+  async getVideo(ctx: Context): Promise<void> {
     const { type, id, videoType } = ctx.params;
     const video = await filesystem.getVideo(type, id, videoType);
 

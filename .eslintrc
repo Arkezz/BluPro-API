@@ -18,7 +18,6 @@
       }
     ],
     "ava/assertion-arguments": "error",
-    //unicorn rules
     "unicorn/filename-case": "off",
     "unicorn/prevent-abbreviations": "off"
   },

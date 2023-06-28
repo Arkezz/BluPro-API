@@ -2,7 +2,6 @@ import test from "ava";
 import request from "supertest";
 import app from "../app.js";
 //import GameController from "../controllers/classController.js";
-// import { CharacterClass } from "../models/class.js";
 
 const classes = [
   "blade-warden",
