@@ -7,16 +7,11 @@
     "plugin:ava/recommended",
     "plugin:promise/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic-type-checked",
     "prettier"
   ],
   "plugins": ["@typescript-eslint", "prettier", "ava"],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "crlf"
-      }
-    ],
     "ava/assertion-arguments": "error",
     "unicorn/filename-case": "off",
     "unicorn/prevent-abbreviations": "off"

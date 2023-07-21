@@ -13,10 +13,10 @@ const errorHandler = async (ctx: Context, next: Next) => {
     await next();
   } catch (error) {
     const {
-      status = error ? error.status : 500,
+      status = error instanceof CustomError ? error.status : 500,
       message = "Internal Server Error",
       data,
-    } = error instanceof Error ? { message: error.message } : error;
+    }: Partial<ErrorResponse> = error instanceof CustomError ? error : {};
 
     const errorResponse: ErrorResponse = { status, message };
     if (data !== undefined) {
@@ -26,7 +26,7 @@ const errorHandler = async (ctx: Context, next: Next) => {
     if (process.env.NODE_ENV === "production") {
       logger.error(error);
     } else {
-      errorResponse.stack = error.stack;
+      errorResponse.stack = (error as Error).stack;
     }
 
     ctx.status = status;

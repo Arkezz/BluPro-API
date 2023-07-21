@@ -6,7 +6,6 @@ import compress from "koa-compress";
 import etag from "koa-etag";
 import conditional from "koa-conditional-get";
 import favicon from "koa-favicon";
-import "dotenv/config";
 
 import router from "./routes/index.js";
 import errorHandler from "./modules/errorHandler.js";
