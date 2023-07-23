@@ -22,7 +22,7 @@ export async function getTypes(): Promise<string[]> {
 export async function getAvailableEntities(type: string): Promise<string[]> {
   const filePath = path.join(dataDirectory, type);
   try {
-    await fs.access(filePath, fs.constants.R_OK);
+    await fs.access(filePath, fs.constants.F_OK);
   } catch {
     throw new CustomError(404, `Type ${type} not found`);
   }
@@ -78,7 +78,7 @@ export async function getAvailableImages(
 ): Promise<string[]> {
   const filePath = path.join(imagesDirectory, type, id).normalize();
   try {
-    await fs.access(filePath, fs.constants.R_OK);
+    await fs.access(filePath, fs.constants.F_OK);
   } catch (error) {
     throw new CustomError(
       500,
@@ -112,7 +112,7 @@ export async function getImage(
   const fileType = requestedFileType as keyof FormatEnum;
 
   try {
-    await fs.access(filePath, fs.constants.R_OK);
+    await fs.access(filePath, fs.constants.F_OK);
   } catch {
     throw new CustomError(404, `Image ${image} doesnt exist for ${type}/${id}`);
   }
@@ -159,7 +159,7 @@ export async function getVideo(
   };
 
   try {
-    await fs.access(filePath, fs.constants.R_OK);
+    await fs.access(filePath, fs.constants.F_OK);
   } catch {
     throw new CustomError(404, `Video ${type}/${id}/${video} doesn't exist`);
   }

@@ -37,7 +37,7 @@ Contributing is simple if you want to add new characters, nations, entity types,
 
 1. **Adding a new entity to an existing type:**
 
-   - Create a new folder in the `assets/data/{entityType}` directory, replacing `{entityType}` with the lowercase name of the entity. Use hyphens instead of spaces. For example, `Knights of Favonius` becomes `knights-of-favonius`.
+   - Create a new folder in the `assets/data/{entityType}` directory, replacing `{entityType}` with the lowercase name of the entity. Use hyphens instead of spaces. For example, `Blade Warden` becomes `blade-warden`.
    - Inside the new folder, create an `en.json` file containing the basic data of the entity you're adding. It's recommended to use the same field names as other entities with the same entity type.
 
 2. **Adding a new entity type:**
@@ -67,4 +67,4 @@ While not a direct fork this project is heavily inspired by the [genshindev/api]
 
 ## License
 
-This project is licensed under
+This project is licensed under the OSL-3.0 License - see the [LICENSE](LICENSE) file for details.

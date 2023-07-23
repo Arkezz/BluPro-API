@@ -16,9 +16,9 @@ const APIController = {
     const lang = ctx.query.lang as string;
     ctx.body = await filesystem.getEntity(type, id, lang);
   },
-
+  
   async getAllEntities(ctx: Context): Promise<void> {
-    const type: string = ctx.params;
+    const type: string = ctx.params.type;
     const lang: string = ctx.query.lang as string;
     const { ...params } = ctx.query;
 
