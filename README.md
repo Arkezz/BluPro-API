@@ -5,7 +5,7 @@ A fan-made API for the upcoming Blue Protocol release, providing access to game-
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/): ^12.0.0
-- [NPM](https://npmjs.org/) or any other Node.js package manager
+- [NPM](https://npmjs.org/), [PNPM](https://pnpm.io/), or any other Node.js package manager
 
 ## Installation
 
@@ -24,6 +24,10 @@ npm run build
 ```
 
 Then start the server with this command:
+
+```
+npm run start
+```
 
 ### Development
 
@@ -55,7 +59,7 @@ Contributing is simple if you want to add new characters, nations, entity types,
    - For entities like characters, serve images from `assets/images/{entityType}/{entityId}`. Images can be in various formats (`heic, heif, jpeg, jpg, png, raw, tiff, webp, gif`), but remove the file extension. For example, `icon.webp` becomes `icon`.
    - Place the image file in the corresponding `assets/images/{entityType}/{entityId}` folder or create the folder if it doesn't exist.
 
-To contribute, create a new Pull Request [here](https://github.com/genshindev/api/pulls) with your changes. We will review it as soon as possible.
+To contribute, create a new Pull Request [here](https://github.com/Arkezz/BluPro-API/pulls) with your changes. We will review it as soon as possible.
 
 ## API Documentation
 
@@ -63,7 +67,7 @@ For detailed information about the available endpoints and how to interact with 
 
 ## Disclaimer
 
-While not a direct fork this project is heavily inspired by the [genshindev/api](https://github.com/genshindev/api) project. Although it might differ more as the development furthers.
+While not a direct fork this project is _heavily_ inspired by the [genshindev/api](https://github.com/genshindev/api) project. Although it might differ more as the development furthers.
 
 ## License
 
