@@ -2,16 +2,16 @@ import { Context, Next } from "koa";
 import logger from "./logger.js";
 
 export default async function loggerMiddleware(ctx: Context, next: Next) {
-  const { method, url, response, query, body, header, fresh, ip } = ctx;
   const startTimestamp = new Date();
 
   await next();
 
   const endTimestamp = new Date();
   const responseTime = endTimestamp.getTime() - startTimestamp.getTime();
+  const { method, url, fresh, status, response, query, body, header, ip } = ctx;
 
-  if (fresh) logger.info(`[${method}] ${url} - 304 cache hit`);
-  else if (process.env.NODE_ENV !== "test") {
+  if (process.env.NODE_ENV !== "test") {
+    if (fresh) logger.info(`[${method}] ${url} - ${status} cache hit`);
     logger.info(`[${method}] ${url}`);
     logger.debug(`Request Headers: ${JSON.stringify(header)}`);
     logger.debug(`Request Query: ${JSON.stringify(query)}`);
