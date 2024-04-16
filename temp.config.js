@@ -1,30 +1,29 @@
 import globals from "globals";
 
-import eslint from "@eslint/js/src/configs/eslint-recommended.js";
+import eslint from "@eslint/js";
 import ava from "eslint-plugin-ava";
-import prettier from "eslint-plugin-prettier";
-import typescript from "@typescript-eslint/eslint-plugin";
+import typescript from "typescript-eslint";
 import typescriptParser from "@typescript-eslint/parser";
 
-import unicorn from "eslint-plugin-unicorn/configs/recommended.js";
+import unicorn from "eslint-plugin-unicorn";
 import promise from "eslint-plugin-promise";
 
+const ignores = ["node_modules/", "dist/"];
+
 //TODO: unify package json scripts
+/** @type { import("eslint").Linter.Config } */
 export default [
-  eslint,
-  typescript.configs.recommended,
-  unicorn,
-  unsanitized,
-  promise.configs.recommended,
-  ava.configs.recommended,
-  prettier.configs.recommended,
+  { ignores },
+  eslint.configs.recommended,
+  unicorn.configs["flat/recommended"],
+  // unsanitized,
+  // promise.configs.recommended,
+  // ava.configs.recommended,
+  ...typescript.configs.recommendedTypeChecked,
+  ...typescript.configs.stylisticTypeChecked,
   {
-    plugins: {
-      ava,
-      unicorn,
-    },
     rules: {
-      "ava/assertion-arguments": "error",
+      // "ava/assertion-arguments": "error",
       "unicorn/filename-case": "off",
       "unicorn/prevent-abbreviations": "off",
     },
@@ -39,3 +38,4 @@ export default [
     },
   },
 ];
+
