@@ -7,10 +7,9 @@
     "plugin:ava/recommended",
     "plugin:promise/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/stylistic-type-checked",
-    "prettier"
+    "plugin:@typescript-eslint/stylistic-type-checked"
   ],
-  "plugins": ["@typescript-eslint", "prettier", "ava"],
+  "plugins": ["@typescript-eslint", "ava"],
   "rules": {
     "ava/assertion-arguments": "error",
     "unicorn/filename-case": "off",
